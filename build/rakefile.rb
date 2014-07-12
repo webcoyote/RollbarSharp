@@ -69,7 +69,7 @@ end
 end
 
 desc "Build the DLLs"
-dotnet_build :build => [:assemblyinfo] do |msb|
+dotnet_build :build => [:fetch_packages, :assemblyinfo] do |msb|
   msb.targets :clean, :build
   msb.solution = SOLUTION_FILE
   msb.properties = BUILD_PROPERTIES
@@ -100,7 +100,10 @@ end
 
 desc "Copy DLLs to the nuget publish directory"
 task :copy do
-  cp_r(File.join(BIN_DIR, "RollbarSharp.dll"), File.join(PUBLISH_DIR, 'lib/net40/'))
+  destDir = File.join(PUBLISH_DIR, 'lib/net40/')
+  mkdir_p(destDir)
+  cp_r(File.join(BIN_DIR, "RollbarSharp.dll"), destDir)
+  cp_r(File.join(BIN_DIR, "Newtonsoft.Json.dll"), destDir)
 end
 
 desc "Create the nuget package"
