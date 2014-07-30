@@ -14,11 +14,6 @@ namespace RollbarSharp.Builders
         public static bool UseFileNames = true;
 
         /// <summary>
-        /// Recursively add internal exceptions to the stack trace
-        /// </summary>
-        public static bool IncludeInnerExceptions = true;
-
-        /// <summary>
         /// Converts the Exception's stack trace to simpler models.
         /// </summary>
         /// <param name="exception"></param>
@@ -69,18 +64,6 @@ namespace RollbarSharp.Builders
 
                 lines.Add(new FrameModel(fileName, lineNumber, methodName));
             }
-
-            // add the inner exception if we have one
-            if (IncludeInnerExceptions && exception.InnerException != null)
-            {
-                // add a line to separate the inner exception
-                // use the inner exception's class name as the method name
-                var innerExType = exception.InnerException.GetType().Name;
-                lines.Add(new FrameModel("-- INNER EXCEPTION " + exception.InnerException.GetType() + " --", method: innerExType));
-
-                lines.AddRange(CreateFramesFromException(exception.InnerException));
-            }
-
 
             return lines.ToArray();
         }
