@@ -1,10 +1,23 @@
+## 0.3.1.0 (2013-12-14)
+
+* Added 'Context' field to the data model
+
+
+## 0.3.0.0 (2013-12-06)
+
+* Add Session data to report. Scrub sensitive param values.
+* Tidying-up
+
+
+## 0.2.2.0 (2013-11-26)
+
+* Fixed: Handle null Response in WebException
+
+
 ## 0.2.1.0 (2013-10-07)
 
 * Merge pull request #5 from richardversluis/master
 * exclude posible null key when converting NameValueCollection to dict
-* Bumped to version 0.2.0.0
-* Update spacing for project consistency
-* Added a HttpModule which can be used to catch exceptions
 
 
 ## 0.2.0.0 (2013-10-07)

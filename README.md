@@ -2,8 +2,6 @@
 
 .NET bindings for [Rollbar](http://www.rollbar.com).
 
-This project is still under development and should be considered in a preview release state.
-
 I'm not affiliated with Rollbar, I just like their service.
 
 As of now this binding is only for .NET 4. If there's a widespread desire for .NET 2.0 support, I'd consider doing that. There's also a dependency on `System.Web.Routing`, so you'll at least need ASP.NET MVC installed on the system.
@@ -30,6 +28,8 @@ The easiest way to get going is to add the `Rollbar.AccessToken` item to your ap
   </appSettings>
 </configuration>
 ```
+
+From there, you have several options on how to integrate with your app.
 
 ### As an ASP.NET Filter
 
@@ -90,9 +90,31 @@ protected void Application_Error(object sender, EventArgs e)
 ```xml
 <system.web>
     <httpModules>
-      <add name="RollbarHttpModule" type="RollbarSharp.RollbarHttpModule"/>
+        <add name="RollbarHttpModule" type="RollbarSharp.RollbarHttpModule"/>
     </httpModules>
 </system.web>
+```
+
+### As an NLog target
+
+You'll need to add the [NLog.RollbarSharp](https://github.com/mroach/NLog.RollbarSharp) assembly to your project for this to work but it's available on [NuGet](https://www.nuget.org/packages/NLog.RollbarSharp/). Check out [the NLog.RollbarSharp README](https://github.com/mroach/NLog.RollbarSharp/blob/master/README.md) for configuration details, but here's the skinny:
+
+```xml
+<nlog>
+    <extensions>
+        <add assembly="NLog.RollbarSharp" />
+    </extensions>
+    <targets>
+        <target xsi:type="RollbarSharp" name="rollbar" />
+    </targets>
+    <rules>
+        <logger name="*" minlevel="Warn" writeTo="rollbar" />
+    </rules>
+</nlog>
+<appSettings>
+    <add key="Rollbar.AccessToken" value="6703358e9f54081e59bb0d65ee066363"/>
+    <add key="Rollbar.Environment" value="development"/>
+</appSettings>
 ```
 
 ## Bugs
@@ -125,5 +147,3 @@ rake build
 ## TODO
 
 * Add more tests
-* Test NLog extension
-* Create nuget package for the NLog extension
