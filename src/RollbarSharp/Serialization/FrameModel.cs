@@ -22,6 +22,24 @@ namespace RollbarSharp.Serialization
         public int LineNumber { get; set; }
 
         /// <summary>
+        /// Code column number.
+        /// </summary>
+        [JsonProperty("column")]
+        public int ColumnNumber { get; set; }
+
+        /// <summary>
+        /// Code IL offset.
+        /// </summary>
+        [JsonProperty("iloffset")]
+        public int ILOffset { get; set; }
+
+        /// <summary>
+        /// Code native offset.
+        /// </summary>
+        [JsonProperty("nativeoffset")]
+        public int NativeOffset { get; set; }
+
+        /// <summary>
         /// Name of the method
         /// </summary>
         [JsonProperty("method")]
@@ -40,10 +58,13 @@ namespace RollbarSharp.Serialization
         [JsonProperty("context")]
         public object Context { get; set; }
 
-        public FrameModel(string fileName, int lineNumber = 0, string method = null)
+        public FrameModel (string fileName, int lineNumber, int columnNumber, int ilOffset, int nativeOffset, string method)
         {
             FileName = fileName;
             LineNumber = lineNumber;
+            ColumnNumber = columnNumber;
+            ILOffset = ilOffset;
+            NativeOffset = nativeOffset;
             Method = method;
         }
         

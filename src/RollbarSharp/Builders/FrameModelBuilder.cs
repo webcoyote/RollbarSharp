@@ -33,17 +33,9 @@ namespace RollbarSharp.Builders
                 var lineNumber = frame.GetFileLineNumber();
                 var fileName = frame.GetFileName();
                 var methodParams = method.GetParameters();
-
-                // when the line number is zero, you can try using the IL offset
-                if (lineNumber == 0)
-                    lineNumber = frame.GetILOffset();
-
-                if (lineNumber == -1)
-                    lineNumber = frame.GetNativeOffset();
-
-                // line numbers less than 0 are not accepted
-                if (lineNumber < 0)
-                    lineNumber = 0;
+                var columnNumber = frame.GetFileColumnNumber();
+                var ilOffset = frame.GetILOffset();
+                var nativeOffset = frame.GetNativeOffset();
 
                 // file names aren't always available, so use the type name instead, if possible
                 if (string.IsNullOrEmpty(fileName))
@@ -62,7 +54,7 @@ namespace RollbarSharp.Builders
                     methodName = methodName + "(" + paramDesc + ")";
                 }
 
-                lines.Add(new FrameModel(fileName, lineNumber, methodName));
+                lines.Add(new FrameModel(fileName, lineNumber, columnNumber, ilOffset, nativeOffset, methodName));
             }
 
             return lines.ToArray();
