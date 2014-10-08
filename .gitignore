@@ -26,3 +26,6 @@ dotnet.watchr.rb
 build/publish/lib/*/*.dll
 build/*.nupkg
 build/publish/*.nuspec
+
+# Ignore other stuff
+download-and-build

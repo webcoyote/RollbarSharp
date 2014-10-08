@@ -70,7 +70,7 @@ end
 
 desc "Build the DLLs"
 dotnet_build :build => [:fetch_packages, :assemblyinfo] do |msb|
-  msb.targets :clean, :build
+  msb.targets :build
   msb.solution = SOLUTION_FILE
   msb.properties = BUILD_PROPERTIES
   msb.verbosity = "minimal"
