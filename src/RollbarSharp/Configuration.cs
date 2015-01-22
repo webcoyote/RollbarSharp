@@ -11,9 +11,13 @@ namespace RollbarSharp
         public static string DefaultCodeVersion = null;
 
         /// <summary>
-        /// Default endpoint URL for posting notices (default: https://api.rollbar.com/api/1/item/)
+        /// Default endpoint URL for posting notices (default: https://api-alt.rollbar.com/api/1/item/)
+        ///
+        /// Rollbar uses SSL ciphers with perfect forward secrecy, which aren't
+        /// supported in Mono as of 3.12.0, so use the alternate endpoint
+        /// which includes ciphers which are less secure but Mono-compatible.
         /// </summary>
-        public static string DefaultEndpoint = "https://api.rollbar.com/api/1/item/";
+        public static string DefaultEndpoint = "https://api-alt.rollbar.com/api/1/item/";
 
         /// <summary>
         /// Default environment name used in notices. (default: production)
@@ -51,7 +55,7 @@ namespace RollbarSharp
         /// <summary>
         /// The server-side access token for your application in Rollbar.
         /// Also known as the post_server_item key
-        /// 
+        ///
         /// Setting: Rollbar.AccessToken
         /// Default: None. You have to set this.
         /// </summary>
@@ -59,7 +63,7 @@ namespace RollbarSharp
 
         /// <summary>
         /// Version of the application that is running (see https://rollbar.com/blog/post/2013/09/17/resolving-rollbar-items-in-versions)
-        /// 
+        ///
         /// Setting: Rollbar.CodeVersion
         /// Default: <see cref="RollbarSharp.Configuration.DefaultCodeVersion"/>
         /// </summary>
@@ -67,7 +71,7 @@ namespace RollbarSharp
 
         /// <summary>
         /// Name of the environment this app is running in. Usually "production" or "staging"
-        /// 
+        ///
         /// Setting: Rollbar.Environment
         /// Default: production
         /// </summary>
@@ -75,7 +79,7 @@ namespace RollbarSharp
 
         /// <summary>
         /// Platform running the code. E.g. Windows or IIS.
-        /// 
+        ///
         /// Setting: Rollbar.Platform
         /// Default: <see cref="System.Environment.OSVersion"/>
         /// </summary>
@@ -83,7 +87,7 @@ namespace RollbarSharp
 
         /// <summary>
         /// Code language. Defaults to csharp.
-        /// 
+        ///
         /// Setting: Rollbar.Language
         /// Default: csharp
         /// </summary>
@@ -91,7 +95,7 @@ namespace RollbarSharp
 
         /// <summary>
         /// .NET Framework version
-        /// 
+        ///
         /// Setting: Rollbar.Framework
         /// Default: ".NET" + <see cref="System.Environment.Version"/>
         /// </summary>
@@ -99,7 +103,7 @@ namespace RollbarSharp
 
         /// <summary>
         /// GIT SHA hash of the running code
-        /// 
+        ///
         /// Setting: Rollbar.GitSha
         /// Default: None. You have to set this.
         /// </summary>
